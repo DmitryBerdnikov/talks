@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>Неочевидные моменты Typescript</title>
+
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link rel="stylesheet" href="dist/theme/white.css" />
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="./assets/atom-one-dark.css" />
+
+		<style>
+			@font-face {
+				font-family: PTSansNarrow;
+				src: url('./assets/fonts/PTSansNarrow-Regular.woff2');
+				font-weight: normal;
+			}
+
+			@font-face {
+				font-family: PTSansNarrow;
+				src: url('./assets/fonts/PTSansNarrow-Bold.woff2');
+				font-weight: bold;
+			}
+
+			*::-webkit-scrollbar {
+				display: none;
+			}
+
+			li {
+				line-height: 1 !important;
+			}
+
+			body {
+				--r-main-font: PTSansNarrow;
+				--r-heading-font: PTSansNarrow;
+				--r-background-color: #f1f1f1;
+			}
+
+			ul li + li {
+				margin-top: 0.7em;
+			}
+
+			ul {
+				margin-left: 0 !important;
+				padding: 0 !important;
+				list-style: none !important;
+			}
+
+			li {
+				padding-left: 0.8em;
+				position: relative;
+			}
+
+			li::before {
+				position: absolute;
+				left: 0;
+				top: 0.4em;
+				content: '';
+				width: 10px;
+				height: 10px;
+				background-color: currentColor;
+				border-radius: 50%;
+			}
+
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				text-transform: none !important;
+			}
+
+			.red {
+				color: #d8133a !important;
+			}
+
+			.green {
+				color: #217d2d !important;
+			}
+
+			code {
+				font-size: 1.6em;
+				line-height: 1.5;
+			}
+
+			.controls {
+				display: none !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Неочевидные моменты Typescript</h1>
+				</section>
+
+				<section>
+					<div style="display: flex; align-items: center; gap: 60px">
+						<img src="./assets/my-photo.jpg" alt="" style="height: 420px" />
+						<small style="padding: 40px 0">
+							<ul style="font-size: 40px">
+								<li>Меня зовут Дима</li>
+								<li>Работаю в веб-студии fuse8</li>
+								<li>В вебе с 2017 года</li>
+							</ul>
+						</small>
+					</div>
+				</section>
+
+				<section data-auto-animate>
+					<h2>Что общего</h2>
+					<ul style="min-width: 70%">
+						<li class="fragment">JSON.parse()</li>
+						<li class="fragment">response.json()</li>
+						<li class="fragment">localStorage.someKey</li>
+						<li class="fragment">sessionStorage.someKey</li>
+						<li class="fragment">Array.isArray()</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2 style="opacity: 0.3">Что общего</h2>
+					<p>Всё приводится к <b class="red">any</b></p>
+					<ul style="min-width: 70%; opacity: 0.3">
+						<li>JSON.parse()</li>
+						<li>response.json()</li>
+						<li>localStorage.someKey</li>
+						<li>sessionStorage.someKey</li>
+						<li>Array.isArray()</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code class="hljs typescript" data-trim data-line-numbers>
+                        function parse(value: unknown) {
+
+                        }
+                    </code></pre>
+				</section>
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code class="hljs typescript" data-trim data-line-numbers="2-4">
+                        function parse(value: unknown) {
+                            if (Array.isArray(value)) {
+
+                            }
+                        }
+                    </code></pre>
+				</section>
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code class="hljs typescript" data-trim data-line-numbers="3">
+                        function parse(value: unknown) {
+                            if (Array.isArray(value)) {
+                                value[0].someKey.title
+                            }
+                        }
+                    </code></pre>
+				</section>
+
+				<section data-transition="none">
+					<pre
+						data-id="code-animation"
+					><code class="hljs typescript" data-trim data-line-numbers>
+                        function parse(value: unknown) {
+                            if (Array.isArray(value)) {
+                                value[0].someKey.title // any[]
+                            }
+                        }
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Получение <span class="red">any</span> вместо unknown</h2>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Решение:</h2>
+					<ul style="min-width: 70%">
+						<li>ts-reset</li>
+						<li class="fragment">Правило <b>noImplicitAny</b> (tsconfig)</li>
+						<li class="fragment">Правило <b>no-explicit-any</b> (eslint)</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>
+						Методы <span class="green">includes</span> и
+						<span class="green">indexOf</span> в массивах
+					</h2>
+					<p>Слишком строгие при использовании as const</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;" class="hljs typescript" data-trim data-line-numbers>
+                        const allowedUserIds = [1, 2, 3] as const
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;" class="hljs typescript" data-trim data-line-numbers="2-3">
+						const allowedUserIds = [1, 2, 3] as const
+						const getUserId = () =>
+							Math.floor(Math.random() * 10)
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;" class="hljs typescript" data-trim data-line-numbers="4">
+						const allowedUserIds = [1, 2, 3] as const
+						const getUserId = () =>
+							Math.floor(Math.random() * 10)
+						const userId = getUserId()
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers=5>
+						const allowedUserIds = [1, 2, 3] as const
+						const getUserId = () =>
+							Math.floor(Math.random() * 10)
+						const userId = getUserId()
+						allowedUserIds.includes(userId)
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2 class="red">Error</h2>
+					<p>
+						Argument of type 'number' is not assignable<br />to parameter of
+						type '1 | 2 | 3'
+					</p>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+						const allowedUserIds = [1, 2, 3] as const
+						const getUserId = () =>
+							Math.floor(Math.random() * 10)
+						const userId = getUserId()
+						allowedUserIds.includes(userId)
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Решение:</h2>
+					<p>ts-reset</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Решение:</h2>
+					<p>ts-reset</p>
+					<p>* также поможет для методов has в Set и Map</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>
+						Возможность возврата неправильного типа данных
+						<span class="green">в функции с перегрузкой</span>
+					</h2>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						function calc(x: unknown, y: unknown): string | number {
+						
+						}
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="1, 3-4">
+						function calc(x: number, y: number): number
+						function calc(x: unknown, y: unknown): string | number {
+							if (typeof x === 'number' && typeof y === 'number')
+								return x + y
+						}
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="2, 7-8">
+						function calc(x: number, y: number): number
+						function calc(x: string, y: string): string
+						function calc(x: unknown, y: unknown): string | number {
+							if (typeof x === 'number' && typeof y === 'number')
+								return x + y
+
+							if (typeof x === 'string' && typeof y === 'string')
+								return 1000;
+						}
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="10">
+						function calc(x: number, y: number): number
+						function calc(x: string, y: string): string
+						function calc(x: unknown, y: unknown): string | number {
+							if (typeof x === 'number' && typeof y === 'number')
+								return x + y
+
+							if (typeof x === 'string' && typeof y === 'string')
+								return 1000;
+						
+							throw new Error('invalid arguments passed')
+						}
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						function calc(x: number, y: number): number
+						function calc(x: string, y: string): string
+						function calc(x: unknown, y: unknown): string | number {
+							if (typeof x === 'number' && typeof y === 'number')
+								return x + y
+
+							if (typeof x === 'string' && typeof y === 'string')
+								return 1000;
+						
+							throw new Error('invalid arguments passed')
+						}
+                    </code></pre>
+					<p style="text-align: left; max-width: 650px; margin: 30px auto 0">
+						<span
+							style="
+								display: flex;
+								justify-content: space-between;
+								border-bottom: 1px solid #ccc;
+								margin-bottom: 10px;
+								padding-bottom: 10px;
+							"
+						>
+							<span>const sumNumber = calc(5, 5)</span>
+							<b>10</b>
+						</span>
+						<span
+							class="fragment"
+							style="
+								display: flex;
+								justify-content: space-between;
+								border-bottom: 1px solid #ccc;
+								margin-bottom: 10px;
+								padding-bottom: 10px;
+							"
+						>
+							<span>const sumString &nbsp;&nbsp;&nbsp;= calc('10', '10')</span>
+							<b>1000</b>
+						</span>
+					</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Решение:</h2>
+					<ul>
+						<li>Тесты</li>
+						<li class="fragment">
+							По возможности не указывать тип<br />возвращаемых значений из
+							функций
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						const getInfo = (title: string) => {
+							const info = {
+								title: `Site name — ${title}`,
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+					<span class="fragment"
+						>aboutPageInfo -> <b>{ title: string; }</b></span
+					>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="4">
+						const getInfo = (title: string) => {
+							const info = {
+								title: `Site name — ${title}`,
+								debugKey: 'u12d'
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						const getInfo = (title: string) => {
+							const info = {
+								title: `Site name — ${title}`,
+								debugKey: 'u12d'
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+					<span
+						>aboutPageInfo -> <b>{ title: string; debugKey: string }</b></span
+					>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="1, 2">
+						type Info = { title: string; }
+						const getInfo = (title: string): Info => {
+							const info = {
+								title: `Site name — ${title}`,
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+					<span class="fragment"
+						>aboutPageInfo -> Info -> <b>{ title: string; }</b></span
+					>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers="5">
+						type Info = { title: string; }
+						const getInfo = (title: string): Info => {
+							const info = {
+								title: `Site name — ${title}`,
+								debugKey: 'u12d'
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						type Info = { title: string; }
+						const getInfo = (title: string): Info => {
+							const info = {
+								title: `Site name — ${title}`,
+								debugKey: 'u12d'
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+					<span>aboutPageInfo -> Info -> <b>{ title: string; }</b></span>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>В Typescript <span class="green">структурная</span> типизация</h2>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<ul>
+						<li>Тип определяется его структурой, а не его именем</li>
+						<li class="fragment">
+							Типы с одинаковой структурой взаимозаменяемы, независимо от их
+							имен
+						</li>
+					</ul>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<img
+						style="display: block; margin: 0 auto"
+						src="./assets/1.png"
+						width="400"
+					/>
+					<p>
+						Если что-то выглядит как утка, крякает как утка и ведёт себя как
+						утка, то это утка
+					</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+						type Info = { title: string; }
+                    </code></pre>
+					<div
+						style="
+							margin: 40px auto 0;
+							width: 600px;
+							height: 450px;
+							border: 4px solid transparent;
+							border-radius: 50%;
+						"
+					>
+						<span
+							style="
+								display: block;
+								position: absolute;
+								top: 45%;
+								left: 50%;
+								transform: translate(-50%, -50%);
+								white-space: nowrap;
+							"
+						>
+							&nbsp;
+						</span>
+						<div
+							style="
+								position: absolute;
+								bottom: 10px;
+								left: 50%;
+								transform: translate(-50%);
+								border: 2px solid rgb(16, 16, 94);
+								width: 250px;
+								height: 250px;
+								border-radius: 50%;
+							"
+						>
+							<span
+								style="
+									display: block;
+									position: absolute;
+									top: 50%;
+									left: 50%;
+									transform: translate(-50%, -50%);
+									white-space: nowrap;
+								"
+							>
+								{ title: string; }
+							</span>
+						</div>
+					</div>
+				</section>
+
+				<section data-transition="none">
+					<style>
+						.structural-typing-1 {
+							border: 4px solid transparent;
+							transition: border-color 1s;
+						}
+						.present .structural-typing-1 {
+							border-color: rgb(9, 126, 75);
+						}
+						.title-1 {
+							opacity: 0;
+							transition: border-color 1s;
+						}
+						.present .title-1 {
+							opacity: 1;
+						}
+					</style>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+						type Info = { title: string; }
+                    </code></pre>
+					<div
+						class="structural-typing-1"
+						style="
+							margin: 40px auto 0;
+							width: 600px;
+							height: 450px;
+							border-radius: 50%;
+						"
+					>
+						<span
+							class="title-1"
+							style="
+								display: block;
+								position: absolute;
+								top: 45%;
+								left: 50%;
+								transform: translate(-50%, -50%);
+								white-space: nowrap;
+							"
+						>
+							{ title: string; debugKey: string; }
+						</span>
+						<div
+							style="
+								position: absolute;
+								bottom: 10px;
+								left: 50%;
+								transform: translate(-50%);
+								border: 2px solid rgb(16, 16, 94);
+								width: 250px;
+								height: 250px;
+								border-radius: 50%;
+							"
+						>
+							<span
+								style="
+									display: block;
+									position: absolute;
+									top: 50%;
+									left: 50%;
+									transform: translate(-50%, -50%);
+									white-space: nowrap;
+								"
+							>
+								{ title: string; }
+							</span>
+						</div>
+					</div>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers>
+						type FormatPrice = { sign?: string; value: number; }
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers="3-6">
+						type FormatPrice = { sign?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { sign = '$', value } = params;
+						  return `${sign} ${value}`;
+						}
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers="8">
+						type FormatPrice = { sign?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { sign = '$', value } = params;
+						  return `${sign} ${value}`;
+						}
+						
+						const params = { sign: 'USD', value: 10 }
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers="10">
+						type FormatPrice = { sign?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { sign = '$', value } = params;
+						  return `${sign} ${value}`;
+						}
+						
+						const params = { sign: 'USD', value: 10 }
+
+						formatPrice(params);
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers>
+						type FormatPrice = { sign?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { sign = '$', value } = params;
+						  return `${sign} ${value}`;
+						}
+						
+						const params = { sign: 'USD', value: 10 }
+
+						formatPrice(params);
+                    </code></pre>
+					<p><b>"USD 10"</b></p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers="1, 4-5">
+						type FormatPrice = { symbol?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { symbol = '$', value } = params;
+						  return `${symbol} ${value}`;
+						}
+						
+						const params = { sign: 'USD', value: 10 }
+
+						formatPrice(params);
+                    </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.17em;"  class="hljs typescript" data-trim data-line-numbers>
+						type FormatPrice = { symbol?: string; value: number; }
+						
+						const formatPrice = (params: FormatPrice) => {
+						  const { symbol = '$', value } = params;
+						  return `${symbol} ${value}`;
+						}
+						
+						const params = { sign: 'USD', value: 10 }
+
+						formatPrice(params);
+                    </code></pre>
+					<p><b>"$ 10"</b></p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h3>Ошибки нет</h3>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+					const params = { sign: 'USD', value: 10 }
+					formatPrice(params);	
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+					formatPrice({ sign: 'USD', value: 10 });
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h3 class="red" style="margin-top: 60px">Ошибка</h3>
+					<p>
+						Object literal may only specify known properties, and 'sign' does
+						not exist in type 'FormatPrice'
+					</p>
+
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+					formatPrice({ sign: 'USD', value: 10 });
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+					const params = { sign: 'USD', value: 10 }
+					formatPrice(params);	
+				</code></pre>
+
+					<h3 class="red" style="margin-top: 60px">Ошибка</h3>
+					<p>
+						Object literal may only specify known properties, and 'sign' does
+						not exist in type 'FormatPrice'
+					</p>
+
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.5em;"  class="hljs typescript" data-trim data-line-numbers>
+					formatPrice({ sign: 'USD', value: 10 });
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>suppressExcessPropertyErrors: true</h2>
+					<p class="fragment">*typescript 5.5+ deprecated и не работает</p>
+				</section>
+
+				<section>
+					<h2>
+						Потеря типизации в <span class="green">Object.keys</span>
+					</h2>
+					<p>* также в Object.entries</p>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.3em;"  class="hljs typescript" data-trim data-line-numbers>
+						const info = { title: 'about', text: 'some' }
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.3em;"  class="hljs typescript" data-trim data-line-numbers="3-5">
+						const info = { title: 'about', text: 'some' }
+
+						Object.keys(info).forEach((key) => {
+							const value = info[key]
+						});
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2 class="red">Ошибка</h2>
+					<p>
+						No index signature with a parameter of type 'string' was found on
+						type '{ title: string; text: string; }'
+					</p>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.3em;"  class="hljs typescript" data-trim data-line-numbers>
+						const info = { title: 'about', text: 'some' }
+
+						Object.keys(info).forEach((key) => {
+							const value = info[key]
+						});
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>Решение:</h2>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.3em;"  class="hljs typescript" data-trim data-line-numbers>
+						const info = { title: 'about', text: 'some' }
+
+						type InfoKeys = keyof typeof info
+
+						Object.keys(info).forEach((key) => {
+						  const value = key as InfoKeys
+						});
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2>
+						Поведение <span class="green">enum’ов</span> соответствует
+						номинативной типизации, а не структурной
+					</h2>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers>
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers="3">
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers="5">
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log(LogLevel.Debug, 'some')
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers>
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log(LogLevel.Debug, 'some')
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers>
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log('Debug', 'some')
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2 class="red">Error</h2>
+					<p style="text-wrap: balance">
+						Argument of type '"Debug"' is not assignable to parameter of type
+						'LogLevel'
+					</p>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers>
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log('Debug', 'some')
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers="2, 6">
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						enum LogLevel2 { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log(LogLevel2.Debug, 'some')
+				</code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<h2 class="red">Error</h2>
+					<p style="text-wrap: balance">
+						Argument of type 'LogLevel2.Debug' is not assignable to parameter of
+						type 'LogLevel'
+					</p>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.2em;"  class="hljs typescript" data-trim data-line-numbers>
+						enum LogLevel { Debug = 'Debug', Error = 'Error' }
+						enum LogLevel2 { Debug = 'Debug', Error = 'Error' }
+						
+						const log = (logLevel: LogLevel, text: string) => {}
+						
+						log(LogLevel2.Debug, 'some')
+				</code></pre>
+				</section>
+				
+				<section>
+					<h2>ts-reset</h2>
+					<a href="https://github.com/total-typescript/ts-reset"
+						>https://github.com/total-typescript/ts-reset</a
+					>
+					<a style="display: block; margin-top: 30px;" href="https://github.com/total-typescript/ts-reset"
+						><img
+							style="display: block; margin: 0 auto; width: 350px;"
+							src="./assets/ts-reset.gif"
+					/></a>
+				</section>
+
+				<section>
+					<h2>Typescript playground</h2>
+					<a href="https://www.typescriptlang.org/play/"
+						>https://www.typescriptlang.org/play/</a
+					>
+					<a style="display: block; margin-top: 30px;" href="https://www.typescriptlang.org/play/"
+						><img style="display: block; margin: 0 auto; width: 350px;" src="./assets/typescript-playground.gif"
+					/></a>
+				</section>
+
+				<section>
+					<h2>Мой телеграмм</h2>
+					<a href="https://t.me/berdnikovDima">https://t.me/berdnikovDima</a>
+					<a style="display: block; margin-top: 30px;" href="https://t.me/berdnikovDima"
+						><img style="display: block; margin: 0 auto; width: 350px;" src="./assets/my-telegram.gif"
+					/></a>
+				</section>
+
+				<section>
+					<h2>Вопросы?</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				navigationMode: 'linear',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+			})
+		</script>
+	</body>
+</html>
