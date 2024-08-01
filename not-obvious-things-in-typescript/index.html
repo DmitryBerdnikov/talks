@@ -184,10 +184,6 @@
 				</section>
 
 				<section data-transition="fade" data-auto-animate>
-					<h2>Получение <span class="red">any</span> вместо unknown</h2>
-				</section>
-
-				<section data-transition="fade" data-auto-animate>
 					<h2>Решение:</h2>
 					<ul style="min-width: 70%">
 						<li>ts-reset</li>
@@ -260,11 +256,6 @@
 						const userId = getUserId()
 						allowedUserIds.includes(userId)
                     </code></pre>
-				</section>
-
-				<section data-transition="fade" data-auto-animate>
-					<h2>Решение:</h2>
-					<p>ts-reset</p>
 				</section>
 
 				<section data-transition="fade" data-auto-animate>
@@ -463,9 +454,24 @@
 						
 						const aboutPageInfo = getInfo('About');
                     </code></pre>
-					<span class="fragment"
-						>aboutPageInfo -> Info -> <b>{ title: string; }</b></span
-					>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						type Info = { title: string; }
+						const getInfo = (title: string): Info => {
+							const info = {
+								title: `Site name — ${title}`,
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
+					<span>aboutPageInfo -> Info -> <b>{ title: string; }</b></span>
 				</section>
 
 				<section data-transition="fade" data-auto-animate>
@@ -502,21 +508,29 @@
 						
 						const aboutPageInfo = getInfo('About');
                     </code></pre>
+				</section>
+
+				<section data-transition="fade" data-auto-animate>
+					<pre
+						data-id="code-animation"
+					><code style="font-size: 1.05em;"  class="hljs typescript" data-trim data-line-numbers>
+						type Info = { title: string; }
+						const getInfo = (title: string): Info => {
+							const info = {
+								title: `Site name — ${title}`,
+								debugKey: 'u12d'
+							}
+						
+							return info
+						}
+						
+						const aboutPageInfo = getInfo('About');
+                    </code></pre>
 					<span>aboutPageInfo -> Info -> <b>{ title: string; }</b></span>
 				</section>
 
 				<section data-transition="fade" data-auto-animate>
 					<h2>В Typescript <span class="green">структурная</span> типизация</h2>
-				</section>
-
-				<section data-transition="fade" data-auto-animate>
-					<ul>
-						<li>Тип определяется его структурой, а не его именем</li>
-						<li class="fragment">
-							Типы с одинаковой структурой взаимозаменяемы, независимо от их
-							имен
-						</li>
-					</ul>
 				</section>
 
 				<section data-transition="fade" data-auto-animate>
@@ -823,9 +837,7 @@
 				</section>
 
 				<section>
-					<h2>
-						Потеря типизации в <span class="green">Object.keys</span>
-					</h2>
+					<h2>Потеря типизации в <span class="green">Object.keys</span></h2>
 					<p>* также в Object.entries</p>
 				</section>
 
@@ -876,7 +888,7 @@
 						type InfoKeys = keyof typeof info
 
 						Object.keys(info).forEach((key) => {
-						  const value = key as InfoKeys
+						  const value = info[key as InfoKeys]
 						});
 				</code></pre>
 				</section>
@@ -989,15 +1001,30 @@
 						log(LogLevel2.Debug, 'some')
 				</code></pre>
 				</section>
-				
+
+				<section data-transition="fade" data-auto-animate>
+					<ul>
+						<li>Тип определяется его структурой, а не его именем</li>
+						<li class="fragment">
+							Типы с одинаковой структурой взаимозаменяемы, независимо от их
+							имен
+						</li>
+						<li class="fragment">
+							Объекты могут содержать лишние свойства, главное чтобы совпадала структура обязательных полей в типе
+						</li>
+					</ul>
+				</section>
+
 				<section>
 					<h2>ts-reset</h2>
 					<a href="https://github.com/total-typescript/ts-reset"
 						>https://github.com/total-typescript/ts-reset</a
 					>
-					<a style="display: block; margin-top: 30px;" href="https://github.com/total-typescript/ts-reset"
+					<a
+						style="display: block; margin-top: 30px"
+						href="https://github.com/total-typescript/ts-reset"
 						><img
-							style="display: block; margin: 0 auto; width: 350px;"
+							style="display: block; margin: 0 auto; width: 350px"
 							src="./assets/ts-reset.gif"
 					/></a>
 				</section>
@@ -1007,16 +1034,24 @@
 					<a href="https://www.typescriptlang.org/play/"
 						>https://www.typescriptlang.org/play/</a
 					>
-					<a style="display: block; margin-top: 30px;" href="https://www.typescriptlang.org/play/"
-						><img style="display: block; margin: 0 auto; width: 350px;" src="./assets/typescript-playground.gif"
+					<a
+						style="display: block; margin-top: 30px"
+						href="https://www.typescriptlang.org/play/"
+						><img
+							style="display: block; margin: 0 auto; width: 350px"
+							src="./assets/typescript-playground.gif"
 					/></a>
 				</section>
 
 				<section>
 					<h2>Мой телеграмм</h2>
 					<a href="https://t.me/berdnikovDima">https://t.me/berdnikovDima</a>
-					<a style="display: block; margin-top: 30px;" href="https://t.me/berdnikovDima"
-						><img style="display: block; margin: 0 auto; width: 350px;" src="./assets/my-telegram.gif"
+					<a
+						style="display: block; margin-top: 30px"
+						href="https://t.me/berdnikovDima"
+						><img
+							style="display: block; margin: 0 auto; width: 350px"
+							src="./assets/my-telegram.gif"
 					/></a>
 				</section>
 
