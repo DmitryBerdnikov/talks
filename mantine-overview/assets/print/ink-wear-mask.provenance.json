@@ -1,0 +1,5 @@
+{
+  "tool": "image_gen (built-in)",
+  "reference": "design/print-poster-reference.png",
+  "prompt": "Use the provided image only as a style reference for the printed ink texture inside the blue Mantine letters. Create a NEW seamless square GRAYSCALE ink-wear texture tile intended as a luminance CSS mask for editable text. No letters, no shapes, no hand, no text, no logo. Almost-white solid paper/ink field (95-100% white) with uneven organic fine mottled ink density, subtle medium-gray porous patches, microscopic gray flecks and fine wispy paper fibers like imperfect blue screenprint ink in the reference. Rare charcoal pinholes and hairline fiber scratches. Rich natural multiscale texture, not evenly distributed dots, not digital static, not large distressed grunge holes, no cracks, no crumpled paper, no lighting or shadows. Texture should retain strong solid letter silhouettes when used as luminance mask: average luminance about 96%, small worn gray areas about 65-85%, very sparse darker details. Whole image uniformly covered in texture, seamless tile. Opaque white background."
+}

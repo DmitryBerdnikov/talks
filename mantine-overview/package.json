@@ -1,0 +1,30 @@
+{
+  "name": "mantine-presentation",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.5.1",
+  "engines": {
+    "node": "24.21.0",
+    "pnpm": "12.5.1"
+  },
+  "scripts": {
+    "dev": "slidev",
+    "build": "slidev build",
+    "export": "slidev export",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "dev:examples": "pnpm --filter @mantine-presentation/examples dev",
+    "build:examples": "pnpm --filter @mantine-presentation/examples build",
+    "typecheck:examples": "pnpm --filter @mantine-presentation/examples typecheck",
+    "build:all": "pnpm build && pnpm build:examples"
+  },
+  "devDependencies": {
+    "@lucide/vue": "1.52.0",
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-markdown-html": "1.6.1",
+    "prettier-plugin-slidev": "1.0.5",
+    "vue": "3.5.43"
+  }
+}

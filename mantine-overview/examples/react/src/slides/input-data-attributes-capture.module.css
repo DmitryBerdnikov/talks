@@ -1,0 +1,26 @@
+@font-face {
+  font-family: Inter;
+  src: url('../../../../assets/fonts/inter/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.capture {
+  box-sizing: border-box;
+  width: 500px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  background: #f7f9fc;
+}
+
+.input[data-variant='filled'] {
+  background-color: #f1f5f9;
+}
+
+.input[data-error] {
+  border: 1px solid #ef4444;
+  background-color: #fff5f5;
+}

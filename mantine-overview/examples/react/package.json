@@ -1,0 +1,39 @@
+{
+  "name": "@mantine-presentation/examples",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 4302 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 4302 --strictPort",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mantine/charts": "9.7.1",
+    "@mantine/core": "9.7.1",
+    "@mantine/dates": "9.7.1",
+    "@mantine/form": "9.7.1",
+    "@mantine/hooks": "9.7.1",
+    "@mantine/tiptap": "9.7.1",
+    "@tiptap/pm": "3.32.0",
+    "@tiptap/react": "3.32.0",
+    "@tiptap/starter-kit": "3.32.0",
+    "dayjs": "1.11.23",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.18.3",
+    "recharts": "3.10.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "@vitejs/plugin-react": "6.1.0",
+    "postcss": "8.5.29",
+    "postcss-preset-mantine": "1.18.0",
+    "postcss-simple-vars": "7.0.1",
+    "sass-embedded": "1.104.1",
+    "typescript": "7.0.2",
+    "vite": "8.2.2"
+  }
+}

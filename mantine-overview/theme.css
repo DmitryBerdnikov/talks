@@ -1,0 +1,104 @@
+:root {
+  /* Общая палитра иконок — как на слайде Style props. */
+  --color-icon-blue: #2d5bff;
+  --color-icon-blue-background: #e3edff;
+  --color-icon-purple: #7628e8;
+  --color-icon-purple-background: #eee5ff;
+  --color-icon-green: #239c68;
+  --color-icon-green-background: #d3f9e3;
+
+  /* Основные цвета презентации */
+  --color-primary: #0047bb;
+  --color-secondary: #f5c84c;
+  --color-danger: #ff2638;
+  --color-danger-strong: #992332;
+  --color-background: #fff;
+  --color-background-paper: #faf8f2;
+  --color-background-dark: #141c2b;
+  --color-accent-on-deep: #8abaff;
+  --color-text-on-deep-muted: #c3cedd;
+  --color-text: #242735;
+  --color-text-muted: #686b73;
+  --color-text-on-dark: #c9c1b2;
+  --color-text-inverse: var(--color-background);
+
+  /* Разделители и приглушённые поверхности */
+  --color-border-primary: color-mix(in srgb, var(--color-primary) 25%, transparent);
+  --color-border-inverse: color-mix(in srgb, var(--color-background) 25%, transparent);
+  --color-border-danger: color-mix(in srgb, var(--color-danger-strong) 35%, transparent);
+  --color-surface-subtle: color-mix(in srgb, var(--color-text) 5%, transparent);
+
+  /* Дополнительные цвета */
+  --color-secondary-ink: #926500;
+  --color-success: #087d46;
+  --color-border: color-mix(in srgb, var(--color-text) 15%, transparent);
+  --color-white: #fff;
+  --color-background-blue: #eaf3fc;
+  --color-demo-border: #d6d9dd;
+
+  /* Типографика: общий заголовок */
+  --slide-heading-size: var(--font-size-heading);
+
+  /* Поля холста и интервалы между основными блоками */
+  --slide-gutter-top: 54px;
+  --slide-gutter-x: 64px;
+  --slide-gutter-bottom: 68px;
+  --slide-gap-sm: 16px;
+  --slide-gap-md: 24px;
+  --slide-gap-lg: 32px;
+  --slide-gap-xl: 40px;
+  --slide-gap-2xl: 48px;
+
+  /* Типографика: основной текст и подписи */
+  --font-size-xs: 18px;
+  --font-size-sm: 22px;
+  --font-size-md: 26px;
+  --font-size-lg: 30px;
+  --font-size-xl: 36px;
+  --font-size-2xl: 40px;
+
+  /* Типографика: заголовки */
+  --font-size-heading-compact: 52px;
+  --font-size-heading-sm: 64px;
+  --font-size-heading: 80px;
+  --font-size-heading-profile: 88px;
+  --font-size-heading-lg: 96px;
+
+  /* Типографика: уникальный крупный набор */
+  --font-size-display-term: 132px;
+  --font-size-display: 144px;
+  --font-size-wordmark: 218px;
+  --font-size-metric: 232px;
+
+  /* Типографика: размеры относительно окружающего текста */
+  --font-size-marker: 0.65em;
+  --font-size-inline-code: 0.93em;
+
+  /* Поверхность: глубокий графит с оттенком индиго */
+  --code-radius: 16px;
+  --color-code-background: #1c2030;
+  --color-code-border: #3b4563;
+  --color-code-highlight: #28324a;
+  --color-code-selection: #40547f;
+  --color-code-selection-text: var(--color-code-text);
+
+  /* Текст: светлый, с нейтральной пунктуацией */
+  --color-code-text: #dee6f7;
+  --color-code-comment: #99a4bd;
+  --color-code-punctuation: #a1acc4;
+
+  /* Синтаксис: Tokyo Stage */
+  --color-code-keyword: #c8a6ff; /* лаванда */
+  --color-code-string: #b4da86; /* фисташка */
+  --color-code-constant: #ffb586; /* абрикос */
+  --color-code-function: #8daaff; /* барвинок */
+  --color-code-tag: #ff88a4; /* розовый коралл */
+  --color-code-attribute: #89d7ff; /* ледяной голубой */
+  --color-code-selector: #72ddc5; /* бирюза */
+  --color-code-html-string: #b4da86;
+
+  /* Фокус: выраженная поверхность, читаемый контекст */
+  --color-code-focus-surround: #181c29;
+  --color-code-focus-background: #2b3651;
+  --code-context-opacity: 0.8;
+}

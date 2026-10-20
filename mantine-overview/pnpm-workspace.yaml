@@ -1,0 +1,11 @@
+packages:
+  - examples/react
+
+# Фиксируем актуальную версию пакетов UnoCSS.
+overrides:
+  unocss: 66.10.5
+  '@unocss/extractor-mdc': 66.10.5
+  '@unocss/reset': 66.10.5
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true

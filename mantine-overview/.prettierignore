@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.slidev/
+pnpm-lock.yaml
+slides-export*
+logo.svg

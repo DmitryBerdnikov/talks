@@ -1,0 +1,103 @@
+.main {
+  background: #fff;
+  color: #17234a;
+}
+
+.header {
+  background: #ffffff;
+  border-color: #dce3fa;
+}
+
+.navbar {
+  background: #fff;
+  color: #17234a;
+  border-color: #dce3fa;
+  --mantine-color-dimmed: #566383;
+
+  :global(.mantine-Divider-root) {
+    border-color: #e8edfc;
+  }
+
+  :global(.mantine-ThemeIcon-root),
+  :global(.mantine-Avatar-placeholder) {
+    background: #edf1ff;
+    color: #2448e5;
+  }
+}
+
+.navLink {
+  border-radius: 8px;
+  color: #17234a;
+
+  &:hover {
+    background: #f8f9ff;
+  }
+
+  &[data-active] {
+    background: #edf1ff;
+    color: #2448e5;
+
+    .navDescription {
+      color: #46577f;
+    }
+
+    :global(.mantine-ThemeIcon-root) {
+      background: #dce4ff;
+      color: #2448e5;
+    }
+  }
+}
+
+.navLabel {
+  font-weight: 600;
+}
+
+.navDescription {
+  color: #566383;
+}
+
+.button {
+  transition: background-color 140ms ease;
+}
+
+.dropdown {
+  background: #fff;
+  border-color: #cdd7f4;
+  color: #17234a;
+}
+
+.option {
+  &[data-combobox-selected],
+  &:hover {
+    background: #edf1ff;
+    color: #2448e5;
+  }
+}
+
+:global([data-custom-users-theme]) {
+  --mantine-color-dimmed: #566383;
+
+  ::selection {
+    color: #172f9c;
+    background: #d5f56b;
+  }
+
+  :focus-visible {
+    outline: 2px solid #365cf5;
+    outline-offset: 3px;
+  }
+
+  input {
+    caret-color: #2448e5;
+  }
+
+  * {
+    scrollbar-color: #a6b7ef #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

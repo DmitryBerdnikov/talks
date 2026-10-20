@@ -1,0 +1,379 @@
+.page {
+  min-height: 100vh;
+  background: #f5f4ef;
+  color: #243a32;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.header {
+  max-width: 1200px;
+  margin: auto;
+  padding: 26px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #dedfd5;
+  gap: 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #243a32;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #294e3f;
+  color: #f5f4ef;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 400;
+}
+.brandDivider {
+  color: #c7ccc4;
+  font-weight: 400;
+  margin: 0 10px;
+}
+.brandCaption {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #728078;
+}
+.backLink {
+  color: #617268;
+  font-size: 13px;
+  text-decoration: none;
+}
+.backLink:hover {
+  color: #1a624b;
+  text-decoration: underline;
+}
+.main {
+  max-width: 1120px;
+  padding: 52px 40px 28px;
+  margin: auto;
+}
+.intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 38px;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: #78867c;
+}
+.title {
+  margin: 18px 0 18px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(34px, 4.3vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1.8px;
+}
+.title span {
+  color: #df795b;
+}
+.subtitle {
+  color: #6c7a71;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.exampleButton {
+  flex-shrink: 0;
+  margin-bottom: 3px;
+  background: transparent;
+  font-size: 13px;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 28px;
+  align-items: start;
+}
+.fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: grid;
+  gap: 20px;
+}
+.page .card {
+  border: 1px solid #e1e4da;
+  border-radius: 16px;
+  background: white;
+  padding: 28px;
+  box-shadow: 0 3px 6px #243a3203;
+}
+.sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 26px;
+}
+.sectionNumber {
+  font-size: 12px;
+  font-weight: 600;
+  color: #698475;
+  width: 34px;
+  height: 34px;
+  background: #eef2ec;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.page .sectionTitle {
+  font-size: 19px;
+  font-weight: 600;
+  font-family: inherit;
+  margin-bottom: 5px;
+  letter-spacing: -0.4px;
+}
+.emailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.memberCount {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.memberRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f3ede3;
+  color: #9f8765;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 29px;
+}
+.memberInput {
+  flex: 1;
+  min-width: 0;
+}
+.rowActions {
+  display: flex;
+  gap: 4px;
+  margin-top: 31px;
+}
+.iconButton {
+  background: transparent;
+  border: 1px solid #e6e8df;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  font-size: 19px;
+  color: #79877d;
+  cursor: pointer;
+}
+.iconButton:hover:not(:disabled) {
+  background: #eef2ec;
+  color: #234d3b;
+}
+.iconButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.iconButton:focus-visible {
+  outline: 2px solid #12816f;
+  outline-offset: 3px;
+}
+.page .addButton {
+  width: fit-content;
+  margin-left: 50px;
+  font-size: 13px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0 12px;
+  flex-wrap: wrap;
+}
+.preview {
+  background: #284d3e;
+  border-radius: 16px;
+  padding: 28px;
+  overflow: hidden;
+}
+.previewLabel {
+  color: #b8cdbf;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+}
+.art {
+  height: 165px;
+  position: relative;
+  margin: 10px 0 18px;
+}
+.art span {
+  position: absolute;
+  width: 102px;
+  height: 102px;
+  border-radius: 50%;
+  left: 50%;
+  top: 35px;
+  border: 1px solid #d8e4c875;
+}
+.art span:nth-child(1) {
+  transform: translateX(-85%);
+  background: #e0e3b817;
+}
+.art span:nth-child(2) {
+  transform: translateX(-15%);
+  background: #e0e3b817;
+}
+.art span:nth-child(3) {
+  transform: translateX(-50%);
+  top: 85px;
+  background: #e0e3b82a;
+}
+.previewTitle {
+  color: #faf7e8;
+  font-family: Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  margin: 24px 0 18px;
+}
+.previewText {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #c2d1c5;
+}
+.sideNote {
+  padding: 24px 10px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  color: #7a857a;
+}
+.sideNote > span {
+  color: #ce805f;
+  font-size: 23px;
+  line-height: 1;
+}
+.sideNote p {
+  line-height: 1.7;
+}
+.savedDetails {
+  font-size: 12px;
+  color: #596b60;
+  padding: 16px;
+  border: 1px solid #dedfd5;
+  border-radius: 12px;
+}
+.savedDetails summary {
+  cursor: pointer;
+}
+.savedDetails pre {
+  font-family: ui-monospace, monospace;
+  max-height: 350px;
+  overflow: auto;
+  font-size: 12px;
+}
+.bottomNote {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid #dedfd5;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+  color: #899287;
+}
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 20px;
+  }
+  .card {
+    padding: 22px;
+  }
+  .preview {
+    padding: 24px;
+  }
+  .emailGrid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .header {
+    padding: 20px;
+  }
+  .brandCaption,
+  .brandDivider {
+    display: none;
+  }
+  .main {
+    padding: 32px 20px 24px;
+  }
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+  .title {
+    font-size: 38px;
+  }
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .preview,
+  .sideNote {
+    display: none;
+  }
+  .card {
+    padding: 22px 18px;
+  }
+  .footer {
+    justify-content: flex-end;
+  }
+  .footer > p {
+    width: 100%;
+  }
+  .sectionHeading {
+    gap: 10px;
+  }
+  .sectionHeading p {
+    font-size: 12px;
+  }
+  .memberRow {
+    gap: 8px;
+  }
+  .avatar {
+    width: 28px;
+    height: 28px;
+    margin-top: 35px;
+  }
+  .rowActions {
+    gap: 3px;
+  }
+  .iconButton {
+    width: 30px;
+  }
+  .addButton {
+    margin-left: 36px;
+  }
+}

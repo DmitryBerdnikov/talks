@@ -1,0 +1,923 @@
+@import './theme.css';
+
+/* Общие цвета, типографика и отступы презентации. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/inter/InterVariable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/inter/InterVariable-Italic.woff2') format('woff2');
+}
+/* Точные начертания для стандартного встраивания в PDF; остальные веса — variable. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/fonts/inter/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/fonts/inter/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./assets/fonts/inter/Inter-Black.woff2') format('woff2');
+}
+
+.slidev-layout.showcase-blue {
+  --color-background: var(--color-background-blue);
+}
+.slidev-layout {
+  box-sizing: border-box;
+  height: 100%;
+  background: var(--color-background);
+  color: var(--color-text);
+  padding: 40px 64px 60px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: var(--font-size-md);
+  line-height: 1.35;
+}
+.slidev-layout :is(h1, h2, h3, h4, h5, h6, .slide-subtitle) {
+  text-wrap: balance;
+}
+.slidev-layout h1 {
+  font-size: var(--font-size-heading-sm);
+  font-weight: 750;
+  line-height: 1.04;
+  letter-spacing: -3px;
+  margin: 0 0 20px;
+  padding-right: 130px;
+}
+.slidev-layout h2 {
+  font-size: var(--font-size-sm);
+  line-height: 1.2;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+.slidev-layout p,
+.slidev-layout h1 + p {
+  opacity: 1;
+  margin: 10px 0;
+}
+.slidev-layout ul {
+  padding-left: 20px;
+  margin: 0;
+}
+.slidev-layout li {
+  margin: 10px 0;
+  padding-left: 2px;
+}
+.slidev-layout li::marker {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-marker);
+}
+.slidev-layout a {
+  color: var(--color-text);
+  border: 0;
+  text-decoration: none;
+}
+.slidev-layout .eyebrow {
+  font-size: var(--font-size-xs);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.slidev-layout .caption {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.slidev-layout .point-list {
+  list-style: none;
+  padding: 0;
+}
+.slidev-layout .point-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0;
+}
+.slidev-layout .point-list svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.slidev-layout .point-list .check-icon {
+  display: flex;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.slidev-layout .point-list .check-icon svg {
+  margin: 0;
+}
+
+/* Shiki token colors come from setup/shiki.ts, independently of the slide canvas. */
+.slidev-layout .slidev-code {
+  --slidev-code-background: var(--color-code-background);
+  --slidev-code-font-family:
+    ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  background: var(--color-code-background) !important;
+  color: var(--color-code-text);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.slidev-layout .slidev-code-wrapper {
+  color: var(--color-code-text);
+}
+.slidev-layout .slidev-code-wrapper button {
+  color: var(--color-code-comment);
+}
+
+/* Visual review: a common editorial grid, retaining every author string. */
+.slidev-layout.visual-review {
+  position: relative;
+  --visual-rule: var(--color-border);
+}
+.slidev-layout.visual-review .slidev-code {
+  border: 0;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace !important;
+  font-variant-ligatures: none;
+  tab-size: 2;
+}
+.slidev-layout.visual-review .slidev-code .line {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere;
+}
+.slidev-layout.visual-review .author-guides {
+  opacity: 0.55;
+}
+.slidev-layout.visual-review .result-visual {
+  pointer-events: none;
+}
+.slidev-layout.visual-review:not(.talk-title, .visual-speaker) h1 {
+  font-weight: 750;
+}
+.slidev-layout.visual-review h1 > code {
+  font-family: inherit;
+  font-size: inherit;
+  background: transparent;
+  color: var(--color-primary);
+}
+.slidev-layout.visual-review a {
+  text-underline-offset: 5px;
+}
+.slidev-layout.visual-review .slidev-vclick-target {
+  transition-duration: 220ms;
+}
+
+/* Reviewed slides 1–12: editorial introduction, clear catalogue and real UI. */
+.slidev-layout.visual-title .title-geometry {
+  opacity: 0.75;
+}
+.slidev-layout.visual-title .talk-author {
+  font-size: var(--font-size-md);
+}
+.slidev-layout.visual-speaker .speaker-photo img {
+  border-radius: 0;
+}
+.slidev-layout.visual-speaker .speaker-geometry {
+  opacity: 0.7;
+}
+.slidev-layout.visual-agenda .author-heading {
+  gap: 36px;
+}
+.slidev-layout.visual-agenda .author-heading > ul {
+  column-gap: 80px;
+}
+.slidev-layout.visual-agenda li {
+  font-size: var(--font-size-lg);
+  padding-block: 13px;
+}
+.slidev-layout.visual-agenda li > ul {
+  border-left: 2px solid var(--color-primary);
+  padding-left: 20px;
+}
+.slidev-layout.visual-agenda li > ul > li {
+  font-size: var(--font-size-sm);
+  padding-block: 4px;
+}
+.slidev-layout.visual-mantine-intro .intro-description {
+  max-width: 1010px;
+}
+.slidev-layout.visual-mantine-intro .intro-facts {
+  column-gap: 24px;
+}
+.slidev-layout.visual-drawbacks .author-heading {
+  gap: 38px;
+}
+.slidev-layout.visual-drawbacks li {
+  border-bottom: 0;
+  border-left: 3px solid var(--color-primary);
+  padding: 12px 0 12px 30px;
+  margin-bottom: 30px;
+}
+.slidev-layout.visual-installation .author-heading {
+  gap: 18px;
+}
+.slidev-layout.visual-installation .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.21 !important;
+  max-width: 930px;
+}
+
+/* Reviewed slides 13–27: measured data and CSS as readable technical figures. */
+.slidev-layout.visual-installation-done .installation-meme {
+  object-fit: cover;
+}
+.slidev-layout.visual-bundle-size .author-heading {
+  margin-top: 38px;
+}
+.slidev-layout.visual-bundle-size th {
+  font-size: var(--font-size-sm);
+}
+.slidev-layout.visual-bundle-size td {
+  font-size: var(--font-size-xl);
+}
+.slidev-layout.visual-css-structure ul {
+  margin-top: 90px;
+  gap: 36px;
+}
+.slidev-layout.visual-css-structure li {
+  font-size: var(--font-size-lg);
+  padding-top: 40px;
+}
+.slidev-layout.visual-css-baseline .slidev-code,
+.slidev-layout.visual-css-global .slidev-code {
+  max-width: 880px;
+}
+.slidev-layout.visual-css-baseline .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.2 !important;
+}
+.slidev-layout.visual-css-variables .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.24 !important;
+}
+.slidev-layout.visual-css-global .author-heading {
+  gap: 30px;
+}
+.slidev-layout.visual-css-global .slidev-code {
+  font-size: var(--font-size-md) !important;
+}
+.slidev-layout.visual-css-components .slidev-code {
+  max-width: 920px;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.22 !important;
+}
+.slidev-layout.visual-css-optimization .author-heading {
+  gap: 28px;
+}
+.slidev-layout.visual-css-optimization .slidev-code {
+  margin-top: 34px;
+  font-size: var(--font-size-md) !important;
+}
+.slidev-layout.visual-css-imports .author-heading {
+  gap: 20px;
+}
+.slidev-layout.visual-css-imports img {
+  margin-top: 45px !important;
+  max-width: 100%;
+}
+.slidev-layout.visual-css-dependencies .author-heading {
+  gap: 46px;
+}
+.slidev-layout.visual-css-dependencies p:first-child {
+  font-size: var(--font-size-xl);
+  max-width: 930px;
+  line-height: 1.25;
+}
+.slidev-layout.visual-css-dependencies .slidev-code {
+  font-size: var(--font-size-md) !important;
+  max-width: 990px;
+}
+.slidev-layout.visual-css-starter .author-heading {
+  margin-top: 68px;
+  gap: 28px;
+}
+.slidev-layout.visual-css-starter p:first-child {
+  max-width: 1000px;
+  font-size: var(--font-size-md);
+}
+.slidev-layout.visual-css-starter .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.16 !important;
+  padding: 18px 26px !important;
+}
+.slidev-layout.visual-css-size-comparison .author-heading {
+  margin-top: 100px;
+}
+.slidev-layout.visual-css-size-comparison table {
+  margin-top: 0;
+}
+.slidev-layout.visual-css-size-comparison th {
+  font-size: var(--font-size-sm);
+}
+.slidev-layout.visual-css-size-comparison td {
+  font-size: var(--font-size-xl);
+  padding-block: 24px !important;
+}
+.slidev-layout.visual-provider-output .slidev-code {
+  max-width: 940px;
+  font-size: var(--font-size-md) !important;
+  line-height: 1.35 !important;
+}
+.slidev-layout.visual-provider-theme .author-heading {
+  margin-top: 90px;
+}
+.slidev-layout.visual-provider-theme .author-columns {
+  align-items: center;
+  margin-top: 35px;
+}
+.slidev-layout.visual-provider-theme .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.35 !important;
+}
+.slidev-layout.visual-provider-visibility .author-heading {
+  margin-top: 80px;
+  gap: 30px;
+}
+.slidev-layout.visual-provider-visibility p:first-child {
+  max-width: 1010px;
+}
+.slidev-layout.visual-provider-visibility .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.2 !important;
+}
+
+/* Reviewed slides 28–43: scale, palette, types and uncluttered code. */
+.slidev-layout.visual-customization-intro h1,
+.slidev-layout.visual-component-customization h1 {
+  font-size: var(--font-size-heading);
+  line-height: 1.04;
+  max-width: 1050px;
+}
+.slidev-layout.visual-customization-theme .slidev-code {
+  font-size: var(--font-size-md) !important;
+  line-height: 1.35 !important;
+  max-width: 1010px;
+}
+.slidev-layout.visual-theme-colors .author-columns {
+  gap: 64px;
+  margin-top: 16px;
+}
+.slidev-layout.visual-theme-colors .blue-palette {
+  height: 145px;
+}
+.slidev-layout.visual-theme-palette p:last-of-type {
+  max-width: 960px;
+  font-size: var(--font-size-xl);
+  line-height: 1.85;
+}
+.slidev-layout.visual-theme-color-variants .author-heading {
+  gap: 25px;
+}
+.slidev-layout.visual-theme-color-variants ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+.slidev-layout.visual-theme-color-variants li {
+  border-left: 2px solid var(--color-primary);
+  padding-left: 20px;
+}
+.slidev-layout.visual-theme-brand-color .author-heading {
+  position: static;
+}
+.slidev-layout.visual-theme-brand-color .slidev-code {
+  max-width: 655px;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.28 !important;
+}
+.slidev-layout.visual-theme-brand-color .brand-result {
+  position: absolute;
+  right: 48px;
+  top: 305px;
+  width: 385px;
+}
+.slidev-layout.visual-measurement-units .author-heading {
+  gap: 24px;
+}
+.slidev-layout.visual-measurement-units .slidev-code {
+  max-width: 830px;
+  font-size: var(--font-size-sm) !important;
+  padding-block: 16px !important;
+}
+.slidev-layout.visual-measurement-units p:last-child {
+  max-width: 1020px;
+  font-size: var(--font-size-md);
+  margin-top: 8px;
+}
+.slidev-layout.visual-measurement-helpers .author-heading {
+  margin-top: 95px;
+}
+.slidev-layout.visual-measurement-helpers .author-columns {
+  align-items: center;
+  margin-top: 30px;
+  gap: 56px;
+}
+.slidev-layout.visual-measurement-helpers .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.55 !important;
+}
+.slidev-layout.visual-theme-scale .author-heading {
+  gap: 16px;
+}
+.slidev-layout.visual-theme-scale .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.2 !important;
+  padding-block: 14px !important;
+}
+.slidev-layout.visual-theme-sizes ul {
+  margin-top: 95px;
+}
+.slidev-layout.visual-theme-sizes li {
+  font-size: var(--font-size-heading-sm);
+}
+.slidev-layout.visual-theme-spacing .slidev-code {
+  max-width: 870px;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.24 !important;
+}
+.slidev-layout.visual-theme-typography .author-heading {
+  gap: 22px;
+}
+.slidev-layout.visual-theme-typography .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.3 !important;
+}
+.slidev-layout.visual-theme-headings .author-heading {
+  margin-top: 88px;
+}
+.slidev-layout.visual-theme-headings .slidev-code {
+  font-size: var(--font-size-md) !important;
+  line-height: 1.2 !important;
+}
+.slidev-layout.visual-theme-custom-types .author-heading {
+  gap: 32px;
+}
+.slidev-layout.visual-theme-custom-types .slidev-code {
+  max-width: 880px;
+  margin-top: 26px;
+  font-size: var(--font-size-lg) !important;
+  line-height: 1.4 !important;
+}
+.slidev-layout.visual-theme-type-extension .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.28 !important;
+  padding: 22px 26px !important;
+}
+.slidev-layout.visual-theme-type-extension .slidev-code code {
+  display: block;
+  columns: 2;
+  column-gap: 44px;
+}
+.slidev-layout.visual-theme-type-extension .slidev-code .line {
+  display: block;
+  break-inside: avoid;
+}
+.slidev-layout.visual-theme-type-extension .slidev-code .line:nth-child(13) {
+  break-before: column;
+}
+
+/* Reviewed slides 44–54: the actual component and the exact shown code. */
+.slidev-layout.visual-component-props-demo .props-comparison {
+  margin-top: 40px;
+}
+.slidev-layout.visual-component-props-demo .props-example .slidev-code {
+  height: 245px;
+  font-size: var(--font-size-md) !important;
+  line-height: 1.32 !important;
+}
+.slidev-layout.visual-component-props-demo .input-preview {
+  margin-top: 22px;
+}
+.slidev-layout.visual-component-props-demo .input-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.slidev-layout.visual-component-props-demo .comparison-arrow {
+  margin-top: 285px;
+}
+.slidev-layout.visual-component-structure .author-columns {
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 64px;
+}
+.slidev-layout.visual-component-structure .slidev-code {
+  font-size: var(--font-size-xs) !important;
+  line-height: 1.3 !important;
+}
+.slidev-layout.visual-component-structure .anatomy-result {
+  margin-top: 28px;
+}
+.slidev-layout.visual-styles-api .author-columns {
+  gap: 52px;
+}
+.slidev-layout.visual-styles-api .author-columns p {
+  font-size: var(--font-size-md);
+  line-height: 1.32;
+}
+.slidev-layout.visual-styles-api .author-columns li {
+  font-size: var(--font-size-sm);
+  margin-block: 17px;
+  line-height: 1.35;
+}
+.slidev-layout.visual-styles-api .slidev-code {
+  font-size: var(--font-size-xs) !important;
+  line-height: 1.19 !important;
+}
+.slidev-layout.visual-styles-api .api-result {
+  margin-top: 25px;
+}
+.slidev-layout.visual-styles-api-docs .author-heading {
+  gap: 32px 38px;
+}
+.slidev-layout.visual-styles-api-docs img {
+  max-height: 390px;
+}
+.slidev-layout.visual-component-data-attributes .author-heading {
+  gap: 30px;
+}
+.slidev-layout.visual-component-data-attributes img {
+  max-height: 415px;
+}
+.slidev-layout.visual-component-data-attributes-css .author-columns {
+  gap: 52px;
+}
+.slidev-layout.visual-component-data-attributes-css .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.4 !important;
+}
+.slidev-layout.visual-component-data-attributes-css .data-result {
+  margin-top: 65px;
+}
+.slidev-layout.visual-component-theme-styles .author-heading {
+  position: static;
+}
+.slidev-layout.visual-component-theme-styles .slidev-code {
+  min-height: 465px;
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.27 !important;
+  padding: 22px 26px !important;
+}
+.slidev-layout.visual-component-theme-styles .slidev-code code {
+  display: block;
+  columns: 2;
+  column-gap: 48px;
+}
+.slidev-layout.visual-component-theme-styles .slidev-code .line {
+  display: block;
+  break-inside: avoid;
+}
+.slidev-layout.visual-component-theme-styles .slidev-code .line:nth-child(16) {
+  break-before: column;
+}
+.slidev-layout.visual-component-theme-styles .global-result {
+  position: absolute;
+  right: 72px;
+  top: 483px;
+  width: 405px;
+}
+.slidev-layout.visual-style-props-example .author-columns {
+  align-items: start;
+  gap: 64px;
+  margin-top: 25px;
+}
+.slidev-layout.visual-style-props-example .author-columns li {
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  margin-block: 28px;
+}
+.slidev-layout.visual-style-props-example .slidev-code {
+  font-size: var(--font-size-md) !important;
+  line-height: 1.4 !important;
+}
+.slidev-layout.visual-style-props-example .props-result {
+  margin-top: 25px;
+  max-width: 470px;
+}
+.slidev-layout.visual-style-props .author-heading {
+  gap: 15px;
+}
+.slidev-layout.visual-style-props td {
+  font-size: var(--font-size-md);
+  padding-block: 8px;
+}
+.slidev-layout.visual-style-props li {
+  font-size: var(--font-size-sm);
+  line-height: 1.3;
+}
+.slidev-layout.visual-styling-guidelines .author-columns {
+  gap: 54px;
+}
+.slidev-layout.visual-styling-guidelines .author-columns li {
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+  margin-block: 16px;
+}
+
+/* Reviewed slides 55–63: useful capabilities and a calm ending. */
+.slidev-layout.visual-interesting-features .source-main {
+  width: 100%;
+}
+.slidev-layout.visual-interesting-features ul {
+  display: grid;
+  grid-template-rows: 205px 205px;
+  margin-top: 40px;
+}
+.slidev-layout.visual-interesting-features li {
+  border-bottom: 0;
+  max-width: 330px;
+  font-size: var(--font-size-xl);
+  display: flex;
+  align-items: center;
+  line-height: 1.22;
+  padding: 0;
+}
+.slidev-layout.visual-interesting-features .contrast-result {
+  position: absolute;
+  right: 70px;
+  top: 196px;
+  width: 570px;
+}
+.slidev-layout.visual-interesting-features .unstyled-result {
+  position: absolute;
+  right: 70px;
+  top: 371px;
+  width: 570px;
+}
+.slidev-layout.visual-custom-components .source-main {
+  max-width: 450px;
+}
+.slidev-layout.visual-custom-components h1 {
+  white-space: nowrap;
+}
+.slidev-layout.visual-custom-components li {
+  font-size: var(--font-size-lg);
+  line-height: 1.42;
+  padding-block: 20px;
+}
+.slidev-layout.visual-custom-components .status-result {
+  position: absolute;
+  right: 48px;
+  top: 335px;
+  width: 600px;
+}
+.slidev-layout.visual-polymorphic-components .source-image {
+  width: 495px;
+  justify-content: flex-start;
+  margin-top: 35px;
+}
+.slidev-layout.visual-polymorphic-components .source-image img {
+  height: 360px;
+  max-width: 495px;
+  object-fit: contain;
+}
+.slidev-layout.visual-polymorphic-components .anchor-result {
+  position: absolute;
+  right: 50px;
+  top: 286px;
+  width: 540px;
+}
+.slidev-layout.visual-useful-links ul {
+  margin-top: 60px;
+}
+.slidev-layout.visual-useful-links li {
+  font-size: var(--font-size-lg);
+  line-height: 1.42;
+  padding-block: 23px;
+}
+.slidev-layout.visual-questions h1 {
+  font-size: var(--font-size-heading-lg);
+  line-height: 1.03;
+}
+
+/* PDF/export: keep syntax colors, but remove click-step focus. */
+html.slidev-export .slidev-layout {
+  --color-code-focus-surround: var(--color-code-background);
+}
+html.slidev-export .slidev-layout .slidev-code-wrapper pre.slidev-code .line {
+  opacity: 1 !important;
+}
+html.slidev-export .slidev-layout .slidev-code-wrapper pre.slidev-code .line.highlighted {
+  background: transparent !important;
+  outline: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout.visual-review *,
+  .slidev-layout.visual-review *::before,
+  .slidev-layout.visual-review *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Final fitting corrections verified against real browser bounding boxes. */
+.slidev-layout.visual-theme-type-extension .slidev-code code,
+.slidev-layout.visual-component-theme-styles .slidev-code code {
+  white-space: normal !important;
+}
+.slidev-layout.visual-theme-type-extension .slidev-code .line,
+.slidev-layout.visual-component-theme-styles .slidev-code .line {
+  min-height: 1lh;
+}
+.slidev-layout.visual-component-theme-styles .slidev-code {
+  min-height: 440px;
+  box-sizing: border-box;
+}
+.slidev-layout.visual-css-baseline .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.16 !important;
+  padding-block: 18px !important;
+}
+.slidev-layout.visual-css-variables .slidev-code {
+  line-height: 1.18 !important;
+  padding-block: 18px !important;
+}
+.slidev-layout.visual-css-baseline p:has(> a:only-child),
+.slidev-layout.visual-css-variables p:has(> a:only-child) {
+  font-size: var(--font-size-xs);
+  line-height: 1.2;
+}
+.slidev-layout.visual-provider-visibility .author-heading {
+  margin-top: 70px;
+  gap: 22px;
+}
+.slidev-layout.visual-provider-visibility .slidev-code {
+  font-size: var(--font-size-sm) !important;
+  line-height: 1.16 !important;
+  padding-block: 18px !important;
+}
+.slidev-layout.visual-styles-api .author-columns p {
+  font-size: var(--font-size-md);
+}
+.slidev-layout.visual-styles-api .author-columns li {
+  margin-block: 10px;
+}
+.slidev-layout.visual-styles-api .api-result {
+  max-width: 450px;
+  margin-top: 18px;
+}
+.slidev-layout.visual-styling-guidelines .author-columns li {
+  margin-block: 11px;
+}
+
+/* Grid excludes inter-line text nodes while preserving every code token. */
+.slidev-layout.visual-review.visual-theme-type-extension .slidev-code code,
+.slidev-layout.visual-review.visual-component-theme-styles .slidev-code code {
+  display: grid !important;
+  grid-auto-flow: column;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 44px;
+  white-space: normal !important;
+}
+.slidev-layout.visual-review.visual-theme-type-extension .slidev-code code {
+  grid-template-rows: repeat(9, auto);
+}
+.slidev-layout.visual-review.visual-component-theme-styles .slidev-code code {
+  grid-template-rows: repeat(15, auto);
+}
+.slidev-layout.visual-review.visual-theme-type-extension .slidev-code .line,
+.slidev-layout.visual-review.visual-component-theme-styles .slidev-code .line {
+  white-space: pre-wrap !important;
+  break-before: auto;
+}
+.slidev-layout.visual-review.visual-css-baseline .slidev-code,
+.slidev-layout.visual-review.visual-css-variables .slidev-code {
+  margin-bottom: 0 !important;
+}
+.slidev-layout.visual-review.visual-provider-visibility .author-heading {
+  margin-top: 55px;
+}
+.slidev-layout.visual-review.visual-styles-api .api-result {
+  max-width: 440px;
+}
+.slidev-layout.visual-review.visual-styling-guidelines .author-columns li {
+  margin-block: 9px;
+}
+
+.slidev-layout.visual-review.visual-css-baseline .author-heading > p:last-child,
+.slidev-layout.visual-review.visual-css-variables .author-heading > p:last-child {
+  font-size: var(--font-size-xs) !important;
+  line-height: 1.2 !important;
+}
+
+/* Tokyo Night: единая поверхность кода; размеры и отступы задаёт компоновка слайда. */
+.slidev-layout .slidev-code-wrapper pre.slidev-code,
+.slidev-layout .code-window {
+  position: relative;
+  border: 1px solid var(--color-code-border);
+  border-radius: var(--code-radius) !important;
+  background: var(--color-code-background) !important;
+  color: var(--color-code-text);
+  box-shadow: none;
+  scrollbar-color: var(--color-code-border) var(--color-code-background);
+  scrollbar-width: thin;
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code {
+  font-variant-ligatures: none;
+  tab-size: 2;
+  transition: background-color 180ms ease-out;
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code .line {
+  color: var(--color-code-text);
+  transition:
+    opacity 180ms ease-out,
+    color 180ms ease-out,
+    background-color 180ms ease-out;
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code .line span {
+  transition: color 180ms ease-out;
+}
+.slidev-layout:has(pre.slidev-code .slidev-code-dishonored) .slidev-code-wrapper pre.slidev-code {
+  --color-code-background: var(--color-code-focus-surround);
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code:has(.slidev-code-dishonored) .line {
+  display: inline-block;
+  box-sizing: border-box;
+  width: calc(100% + 24px);
+  margin-inline: -12px;
+  padding-inline: 12px;
+  vertical-align: top;
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code:has(.slidev-code-dishonored) .line.highlighted {
+  background: var(--color-code-focus-background);
+  /* Overlap fractional pixels so adjacent lines read as one continuous surface. */
+  outline: 1px solid var(--color-code-focus-background);
+  outline-offset: -0.5px;
+  border-radius: 6px;
+}
+.slidev-layout
+  .slidev-code-wrapper
+  pre.slidev-code:has(.slidev-code-dishonored)
+  .line.highlighted:has(+ .line.highlighted) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.slidev-layout
+  .slidev-code-wrapper
+  pre.slidev-code:has(.slidev-code-dishonored)
+  .line.highlighted
+  + .line.highlighted {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.slidev-layout:has(pre.slidev-code .slidev-code-dishonored)
+  .slidev-code-wrapper
+  pre.slidev-code:not(:has(.slidev-code-dishonored))
+  .line,
+.slidev-layout .slidev-code-wrapper pre.slidev-code .line.slidev-code-dishonored,
+.slidev-layout .slidev-code-wrapper pre.slidev-code .line.dimmed {
+  opacity: var(--code-context-opacity);
+}
+.slidev-layout .slidev-code-wrapper pre.slidev-code .line::before {
+  color: var(--color-code-comment);
+}
+.slidev-layout .slidev-code-wrapper button {
+  top: 10px;
+  right: 10px;
+  padding: 6px;
+  border-radius: 8px;
+  background: var(--color-code-background);
+  color: var(--color-code-comment);
+}
+.slidev-layout .slidev-code-wrapper button:hover,
+.slidev-layout .slidev-code-wrapper button:focus-visible {
+  background: var(--color-code-highlight);
+  color: var(--color-code-text);
+}
+.slidev-layout .slidev-code-wrapper button:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--color-code-tag);
+  outline-offset: 2px;
+}
+.slidev-layout .slidev-code::selection,
+.slidev-layout .slidev-code ::selection,
+.slidev-layout .code-window ::selection {
+  background: var(--color-code-selection);
+  color: var(--color-code-selection-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout .slidev-code-wrapper pre.slidev-code,
+  .slidev-layout .slidev-code-wrapper pre.slidev-code .line,
+  .slidev-layout .slidev-code-wrapper pre.slidev-code .line span {
+    transition: none;
+  }
+}

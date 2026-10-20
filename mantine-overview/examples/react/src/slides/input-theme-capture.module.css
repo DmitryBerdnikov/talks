@@ -1,0 +1,46 @@
+@font-face {
+  font-family: Inter;
+  src: url('../../../../assets/fonts/inter/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+.capture {
+  box-sizing: border-box;
+  width: 480px;
+  height: 376px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  padding: 12px 8px;
+  background: #fff;
+}
+
+.capture :global(.mantine-InputWrapper-label) {
+  margin-bottom: 6px;
+  color: #202321;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.capture :global(.mantine-InputWrapper-error) {
+  margin-top: 9px;
+  color: #e03131;
+  font-size: 14px;
+}
+
+.wrapper {
+  --input-padding-inline-start: 22px;
+  --input-padding-inline-end: 50px;
+  --input-right-section-width: 64px;
+}
+
+.wrapper :global(.mantine-Input-input) {
+  border-width: 2px;
+  caret-color: transparent;
+}
+
+:global(body):has(.capture) {
+  margin: 0;
+}

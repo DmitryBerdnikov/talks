@@ -1,0 +1,30 @@
+# Зависимости и генерируемые файлы
+node_modules/
+dist/
+.slidev/
+.pnpm-store/
+
+# Экспорт Slidev; исходные изображения и PDF не игнорируем
+/slides-export.*
+/slides-export/
+
+# Служебные файлы macOS
+.DS_Store
+._*
+
+# Диагностические логи менеджеров пакетов
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Результаты визуальных проверок
+/.impeccable/review/
+/qa/visual-review/slides/
+/qa/visual-review/index.html
+/qa/visual-review/demo-report.json
+/qa/visual-review/navigation-report.json
+
+# Кэш Python
+__pycache__/
+*.pyc

@@ -1,0 +1,22 @@
+.root {
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #eef3f9;
+}
+
+.label {
+  color: #315b8a;
+  font-weight: 600;
+}
+
+.input[data-error] {
+  border: 2px solid #b76b80;
+}
+
+.input[data-variant='filled'] {
+  background-color: #f3f2f7;
+  color: #49415f;
+  --input-placeholder-color: currentColor;
+}

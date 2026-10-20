@@ -1,0 +1,16 @@
+.group {
+  padding: var(--mantine-spacing-xl);
+  text-align: center;
+  border: 1px solid var(--mantine-color-blue-4);
+  border-radius: var(--mantine-radius-md);
+}
+
+.title {
+  color: var(--mantine-color-blue-6);
+  font-weight: var(--mantine-font-weight-normal);
+}
+
+.button {
+  width: rem(200px);
+  margin: var(--mantine-spacing-md) auto 0;
+}

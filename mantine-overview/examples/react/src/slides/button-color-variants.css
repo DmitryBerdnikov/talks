@@ -1,0 +1,41 @@
+.button-states {
+  display: grid;
+  grid-template-columns: repeat(2, 360px);
+  gap: 16px;
+  width: max-content;
+}
+.button-states-capture {
+  display: block;
+  width: 360px;
+  transform: scale(2);
+  transform-origin: top left;
+}
+.button-state-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  gap: 8px;
+  width: 360px;
+  height: 48px;
+  padding: 6px 8px;
+}
+.button-state-strip-light {
+  background: #f8f9fa;
+}
+.button-state-strip-dark {
+  background: #242424;
+}
+.button-state-strip .state-button {
+  width: 100%;
+  padding-inline: 0;
+}
+/* Freeze the real Mantine hover variables for side-by-side state captures. */
+.button-state-strip .state-button[data-state='hover'],
+.button-state-strip .state-button[data-state='pressed'] {
+  background-color: var(--button-hover);
+  color: var(--button-hover-color, var(--button-color));
+}
+/* Mantine's default .mantine-active:active only shifts the control by 1px. */
+.button-state-strip .state-button[data-state='pressed'] {
+  transform: translateY(calc(0.0625rem * var(--mantine-scale)));
+}
