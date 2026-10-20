@@ -27,20 +27,20 @@ clicks: 2
   <ul class="feature-list hooks-list">
     <li>
       <span class="feature-icon feature-icon-blue"><Timer aria-hidden="true" /></span>
-      <div>
+      <div class="item-title-wrapper">
         <code>useDebouncedValue</code
         ><span class="item-description">Обновление значения с задержкой</span>
       </div>
     </li>
     <li>
       <span class="feature-icon feature-icon-purple"><Copy aria-hidden="true" /></span>
-      <div>
+      <div class="item-title-wrapper">
         <code>useClipboard</code><span class="item-description">Копирование в буфер обмена</span>
       </div>
     </li>
     <li>
       <span class="feature-icon feature-icon-green"><Keyboard aria-hidden="true" /></span>
-      <div>
+      <div class="item-title-wrapper">
         <code>useHotkeys</code><span class="item-description">Обработка горячих клавиш</span>
       </div>
     </li>
@@ -55,11 +55,11 @@ clicks: 2
   <ul class="feature-list form-list">
     <li>
       <span class="feature-icon feature-icon-blue"><ToggleLeft aria-hidden="true" /></span>
-      <div><strong class="item-title">Controlled и uncontrolled режимы</strong></div>
+      <div class="item-title-wrapper"><strong class="item-title">Controlled и uncontrolled режимы</strong></div>
     </li>
     <li>
       <span class="feature-icon feature-icon-purple"><ShieldCheck aria-hidden="true" /></span>
-      <div>
+      <div class="item-title-wrapper">
         <strong class="item-title">Валидация</strong
         ><span class="item-description"
           >Встроенные проверки и интеграция с Zod и другими библиотеками</span
@@ -68,7 +68,7 @@ clicks: 2
     </li>
     <li>
       <span class="feature-icon feature-icon-green"><ListTree aria-hidden="true" /></span>
-      <div><strong class="item-title">Работа с вложенными полями</strong></div>
+      <div className="item-title-wrapper"><strong class="item-title">Работа с вложенными полями</strong></div>
     </li>
   </ul>
 </section>
@@ -135,7 +135,6 @@ clicks: 2
   }
   .slidev-layout.print-detail.print-rest-custom-components :deep(.feature-list) {
     gap: 8px;
-    grid-template-rows: 64px minmax(88px, auto) 64px;
   }
   .slidev-layout.print-detail.print-rest-custom-components :deep(.feature-list li) {
     display: grid;
@@ -199,5 +198,12 @@ clicks: 2
     font-family: monospace;
     font-size: 0.9em;
     font-weight: 400;
+  }
+
+  .item-title-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>

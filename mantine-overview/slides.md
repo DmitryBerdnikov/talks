@@ -1,7 +1,6 @@
 ---
 theme: default
 title: 'Mantine: удобный UI для React'
-info: 'Mantine — полный доклад из ../mantine.md'
 lang: ru
 colorSchema: light
 aspectRatio: 16/9

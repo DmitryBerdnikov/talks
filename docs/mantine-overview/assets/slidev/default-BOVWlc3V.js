@@ -1,0 +1,1 @@
+import{B as e,L as t,v as n}from"../modules/shiki-DDVIl_LA.js";import{vt as r}from"../index-DkaOJ7C7.js";var i={},a={class:`slidev-layout default`};function o(r,i){return t(),n(`div`,a,[e(r.$slots,`default`)])}var s=r(i,[[`render`,o]]);export{s as t};
